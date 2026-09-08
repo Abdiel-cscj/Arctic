@@ -1,247 +1,445 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="Arctic — Roblox developer portfolio." />
-  <title>Arctic — Roblox Developer</title>
-  <style>
-    :root{
-      --bg:#eeece8;
-      --panel:rgba(255,255,255,.52);
-      --panel-strong:rgba(255,255,255,.72);
-      --text:#30363b;
-      --muted:#85847f;
-      --line:rgba(82,82,78,.14);
-      --teal:#20aaa9;
-      --blue:#2879e7;
-      --shadow:0 18px 55px rgba(64,65,62,.10);
-    }
-    *{box-sizing:border-box}
-    html{scroll-behavior:smooth}
-    body{
-      margin:0;
-      color:var(--text);
-      font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
-      background:
-        radial-gradient(circle at 50% 10%,rgba(255,255,255,.8),transparent 34rem),
-        linear-gradient(135deg,#e7e5e1 0%,#f2f0ec 48%,#e6e4df 100%);
-      min-height:100vh;
-    }
-    body:before,body:after{
-      content:"";
-      position:fixed;
-      z-index:-1;
-      width:55vw;height:20vh;
-      border-top:1px solid rgba(100,100,96,.16);
-      border-radius:50%;
-      pointer-events:none;
-    }
-    body:before{top:-8vh;left:-10vw;transform:rotate(-9deg)}
-    body:after{right:-15vw;bottom:-8vh;transform:rotate(-12deg)}
-    a{color:inherit;text-decoration:none}
-    .wrap{width:min(1080px,calc(100% - 36px));margin:auto}
-    nav{
-      position:sticky;top:16px;z-index:20;
-      width:min(1080px,calc(100% - 36px));margin:16px auto 0;
-      display:flex;align-items:center;justify-content:space-between;
-      padding:10px 12px 10px 18px;
-      background:rgba(245,244,241,.72);
-      backdrop-filter:blur(18px);
-      border:1px solid var(--line);border-radius:18px;
-      box-shadow:0 10px 35px rgba(50,50,48,.06);
-    }
-    .brand{font-weight:750;letter-spacing:.02em}
-    .brand span{background:linear-gradient(90deg,var(--teal),var(--blue));-webkit-background-clip:text;color:transparent}
-    nav .links{display:flex;gap:5px}
-    nav .links a{padding:9px 12px;border-radius:11px;color:#666661;font-size:13px}
-    nav .links a:hover{background:rgba(255,255,255,.62);color:var(--text)}
-    .hero{padding:110px 0 75px;text-align:center;position:relative}
-    .snow{position:absolute;color:#9e9d98;opacity:.42;font-size:22px}
-    .s1{left:7%;top:23%}.s2{right:9%;top:18%;font-size:16px}.s3{left:12%;bottom:12%;font-size:14px}.s4{right:14%;bottom:9%;font-size:24px}
-    .eyebrow{
-      display:inline-flex;gap:8px;align-items:center;padding:7px 11px;
-      border:1px solid var(--line);border-radius:999px;background:rgba(255,255,255,.38);
-      color:#777671;font-size:12px;letter-spacing:.08em;text-transform:uppercase
-    }
-    .dot{width:7px;height:7px;border-radius:50%;background:#48b79a;box-shadow:0 0 0 5px rgba(72,183,154,.10)}
-    h1{
-      margin:22px 0 4px;font-family:Georgia,"Times New Roman",serif;
-      font-size:clamp(64px,12vw,132px);font-weight:500;letter-spacing:-.065em;line-height:.86;
-      background:linear-gradient(105deg,var(--teal),#199bc7 48%,var(--blue));
-      -webkit-background-clip:text;color:transparent;
-    }
-    .hero h2{margin:20px 0 0;font-size:clamp(19px,3vw,28px);font-weight:400;letter-spacing:.22em;color:#8b8984}
-    .hero p{max-width:610px;margin:22px auto 0;color:var(--muted);line-height:1.75;font-size:15px}
-    .cta{display:flex;justify-content:center;gap:10px;margin-top:28px;flex-wrap:wrap}
-    .btn{padding:12px 17px;border-radius:12px;border:1px solid var(--line);font-size:13px;background:rgba(255,255,255,.48)}
-    .btn.primary{background:#30363b;color:white;border-color:#30363b}
-    .btn:hover{transform:translateY(-1px)}
-    section{padding:42px 0}
-    .section-title{display:flex;align-items:end;justify-content:space-between;margin-bottom:18px}
-    .section-title h3{margin:0;font-size:20px;font-weight:650}
-    .section-title span{font-size:12px;color:#999790}
-    .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
-    .card{
-      padding:21px;border:1px solid var(--line);border-radius:18px;background:var(--panel);
-      box-shadow:var(--shadow);backdrop-filter:blur(14px)
-    }
-    .card:hover{background:var(--panel-strong);transform:translateY(-2px);transition:.2s}
-    .card .icon{font-size:22px;margin-bottom:13px}
-    .card h4{margin:0 0 7px;font-size:16px}
-    .card p{margin:0;color:var(--muted);font-size:13px;line-height:1.65}
-    .tags{display:flex;gap:7px;flex-wrap:wrap;margin-top:15px}
-    .tag{font-size:11px;padding:5px 8px;border-radius:8px;background:rgba(70,70,66,.06);color:#73716c}
-    .project{min-height:180px;display:flex;flex-direction:column;justify-content:space-between}
-    .project .top{display:flex;justify-content:space-between;gap:10px}
-    .project .num{font-family:Georgia,serif;font-size:25px;color:#aaa7a1}
-    .project a{font-size:12px;color:#377cce}
-    .stats{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
-    .stat{text-align:center;padding:19px 10px;border:1px solid var(--line);border-radius:16px;background:rgba(255,255,255,.4)}
-    .stat strong{display:block;font-size:25px}
-    .stat span{font-size:11px;color:var(--muted)}
-    .timebox{
-      display:grid;grid-template-columns:1fr 1fr;gap:14px
-    }
-    .clock{
-      padding:25px;border-radius:20px;border:1px solid var(--line);background:var(--panel);
-      box-shadow:var(--shadow)
-    }
-    .clock small{color:var(--muted);letter-spacing:.1em;text-transform:uppercase}
-    .time{font-variant-numeric:tabular-nums;font-size:34px;margin:8px 0 2px;font-weight:650}
-    .date{font-size:12px;color:var(--muted)}
-    .countdown{
-      margin-top:14px;padding:18px;border-radius:15px;background:rgba(255,255,255,.45);
-      border:1px solid var(--line)
-    }
-    .countdown b{font-variant-numeric:tabular-nums;font-size:23px}
-    footer{padding:45px 0 60px;text-align:center;color:#9a9892;font-size:12px}
-    .footer-brand{font-family:Georgia,serif;font-size:26px;background:linear-gradient(90deg,var(--teal),var(--blue));-webkit-background-clip:text;color:transparent}
-    @media(max-width:760px){
-      .grid{grid-template-columns:1fr}
-      .stats{grid-template-columns:1fr 1fr}
-      .timebox{grid-template-columns:1fr}
-      nav .links a:nth-child(-n+2){display:none}
-      .hero{padding-top:80px}
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your Name — Roblox Developer</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            background: #e9e7e2;
+            color: #292826;
+            line-height: 1.6;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 1050px;
+            margin: auto;
+        }
+
+        /* NAVBAR */
+
+        nav {
+            padding: 25px 0;
+            border-bottom: 1px solid #d3d0ca;
+        }
+
+        nav .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 20px;
+            font-weight: 700;
+            letter-spacing: -0.5px;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: #77736c;
+            margin-left: 25px;
+            font-size: 14px;
+            transition: 0.2s;
+        }
+
+        nav a:hover {
+            color: #292826;
+        }
+
+        /* HERO */
+
+        .hero {
+            padding: 100px 0 80px;
+        }
+
+        .tag {
+            display: inline-block;
+            padding: 6px 12px;
+            background: #dedbd5;
+            border-radius: 20px;
+            font-size: 12px;
+            color: #77736c;
+            margin-bottom: 20px;
+        }
+
+        .hero h1 {
+            font-size: clamp(42px, 7vw, 76px);
+            line-height: 1;
+            letter-spacing: -4px;
+            max-width: 750px;
+            margin-bottom: 25px;
+        }
+
+        .hero h1 span {
+            color: #858078;
+        }
+
+        .hero p {
+            max-width: 600px;
+            color: #77736c;
+            font-size: 17px;
+        }
+
+        .timezone {
+            margin-top: 25px;
+            font-size: 13px;
+            color: #8c8880;
+        }
+
+        /* SECTIONS */
+
+        section {
+            padding: 75px 0;
+        }
+
+        .section-title {
+            font-size: 13px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: #8a867f;
+            margin-bottom: 30px;
+        }
+
+        /* WORK */
+
+        .projects {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 18px;
+        }
+
+        .project {
+            background: #f3f1ed;
+            border: 1px solid #d9d6d0;
+            border-radius: 14px;
+            padding: 25px;
+            min-height: 180px;
+            transition: 0.25s;
+        }
+
+        .project:hover {
+            transform: translateY(-4px);
+            border-color: #aaa69e;
+        }
+
+        .project-number {
+            font-size: 12px;
+            color: #aaa69e;
+            margin-bottom: 35px;
+        }
+
+        .project h3 {
+            font-size: 20px;
+            margin-bottom: 8px;
+        }
+
+        .project p {
+            font-size: 13px;
+            color: #858078;
+        }
+
+        .status {
+            display: inline-block;
+            margin-top: 18px;
+            font-size: 11px;
+            padding: 5px 9px;
+            border-radius: 10px;
+            background: #e1ded8;
+            color: #77736c;
+        }
+
+        /* SKILLS */
+
+        .skills {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .skill {
+            background: #f3f1ed;
+            border: 1px solid #d5d2cc;
+            padding: 10px 18px;
+            border-radius: 30px;
+            font-size: 13px;
+        }
+
+        /* PAYMENT */
+
+        .payment-box {
+            background: #2c2b29;
+            color: #f4f2ee;
+            border-radius: 16px;
+            padding: 35px;
+        }
+
+        .payment-box h2 {
+            font-size: 25px;
+            margin-bottom: 25px;
+        }
+
+        .payment-item {
+            padding: 17px 0;
+            border-bottom: 1px solid #484642;
+            font-size: 14px;
+        }
+
+        .payment-item:last-child {
+            border-bottom: none;
+        }
+
+        .payment-label {
+            display: block;
+            color: #9f9b94;
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            margin-bottom: 5px;
+        }
+
+        /* CONTACT */
+
+        .contact {
+            text-align: center;
+            padding: 100px 0;
+        }
+
+        .contact h2 {
+            font-size: 42px;
+            letter-spacing: -2px;
+            margin-bottom: 15px;
+        }
+
+        .contact p {
+            color: #77736c;
+            margin-bottom: 25px;
+        }
+
+        .button {
+            display: inline-block;
+            background: #2c2b29;
+            color: white;
+            text-decoration: none;
+            padding: 12px 22px;
+            border-radius: 8px;
+            font-size: 13px;
+            transition: 0.2s;
+        }
+
+        .button:hover {
+            opacity: 0.8;
+        }
+
+        /* FOOTER */
+
+        footer {
+            border-top: 1px solid #d3d0ca;
+            padding: 25px 0;
+            color: #96918a;
+            font-size: 12px;
+        }
+
+        @media (max-width: 750px) {
+            .projects {
+                grid-template-columns: 1fr;
+            }
+
+            nav a {
+                margin-left: 12px;
+            }
+
+            .hero {
+                padding-top: 70px;
+            }
+        }
+    </style>
 </head>
+
 <body>
-  <nav>
-    <div class="brand"><span>Arctic</span> / UI</div>
-    <div class="links">
-      <a href="#work">Work</a><a href="#skills">Skills</a><a href="#time">Time</a><a href="#contact">Contact</a>
-    </div>
-  </nav>
 
-  <main class="wrap">
-    <header class="hero">
-      <span class="snow s1">❄</span><span class="snow s2">✦</span><span class="snow s3">❄</span><span class="snow s4">✧</span>
-      <div class="eyebrow"><i class="dot"></i> Available for Roblox projects</div>
-      <h1>Arctic</h1>
-      <h2>ROBLOX DEVELOPER</h2>
-      <p>I build clean, polished Roblox experiences with a focus on gameplay systems, UI, scripting, and branding.</p>
-      <div class="cta">
-        <a class="btn primary" href="#work">View my work</a>
-        <a class="btn" href="https://github.com/" target="_blank">GitHub ↗</a>
-      </div>
-    </header>
+    <nav>
+        <div class="container">
+            <div class="logo">YOURNAME.</div>
 
-    <section id="work">
-      <div class="section-title"><h3>Selected work</h3><span>01 — 03</span></div>
-      <div class="grid">
-        <article class="card project">
-          <div class="top"><div><div class="icon">◈</div><h4>Fade! Basketball</h4><p>Competitive Roblox basketball experience with ranked gameplay, banners, matchmaking, and custom UI.</p></div><span class="num">01</span></div>
-          <div class="tags"><span class="tag">Lua</span><span class="tag">UI</span><span class="tag">Systems</span></div>
-        </article>
-        <article class="card project">
-          <div class="top"><div><div class="icon">◇</div><h4>Plane Game</h4><p>Arcade-style Roblox plane experience with progression, crates, rewards, and simple cartoony presentation.</p></div><span class="num">02</span></div>
-          <div class="tags"><span class="tag">Gameplay</span><span class="tag">UI</span><span class="tag">Design</span></div>
-        </article>
-        <article class="card project">
-          <div class="top"><div><div class="icon">✦</div><h4>UI Systems</h4><p>Modern menus, profiles, settings, leaderboards, banners, and responsive interfaces designed for Roblox.</p></div><span class="num">03</span></div>
-          <div class="tags"><span class="tag">Roblox Studio</span><span class="tag">UX</span><span class="tag">Lua</span></div>
-        </article>
-      </div>
-    </section>
-
-    <section id="skills">
-      <div class="section-title"><h3>What I do</h3><span>SKILLS</span></div>
-      <div class="grid">
-        <article class="card"><div class="icon">⌁</div><h4>Lua / Luau</h4><p>Gameplay logic, remote events, data systems, matchmaking, leaderboards, and clean client/server architecture.</p></article>
-        <article class="card"><div class="icon">□</div><h4>UI / UX</h4><p>Minimal interfaces, menus, HUDs, profile systems, settings, animations, and polished interaction details.</p></article>
-        <article class="card"><div class="icon">△</div><h4>Game Design</h4><p>Progression, rewards, competitive systems, game loops, and visual direction built around replayability.</p></article>
-      </div>
-    </section>
-
-    <section>
-      <div class="section-title"><h3>Quick stats</h3><span>PORTFOLIO</span></div>
-      <div class="stats">
-        <div class="stat"><strong>Luau</strong><span>PRIMARY LANGUAGE</span></div>
-        <div class="stat"><strong>UI</strong><span>CORE SPECIALTY</span></div>
-        <div class="stat"><strong>RBLX</strong><span>PLATFORM</span></div>
-        <div class="stat"><strong>24/7</strong><span>LIVE STATUS</span></div>
-      </div>
-    </section>
-
-    <section id="time">
-      <div class="section-title"><h3>Live status</h3><span>LOCAL TIME</span></div>
-      <div class="timebox">
-        <div class="clock">
-          <small>AST · UTC−4</small>
-          <div class="time" id="ast">--:--:--</div>
-          <div class="date" id="astDate">Loading…</div>
-          <div class="countdown"><small>Next AST midnight</small><br><b id="countdown">00:00:00</b></div>
+            <div>
+                <a href="#work">Work</a>
+                <a href="#skills">Skills</a>
+                <a href="#payment">Payment</a>
+            </div>
         </div>
-        <div class="clock">
-          <small>EST · UTC−5</small>
-          <div class="time" id="est">--:--:--</div>
-          <div class="date" id="estDate">Loading…</div>
-          <div class="countdown"><small>UTC−5 reference</small><br><b id="offset">UTC−05:00</b></div>
+    </nav>
+
+
+    <main>
+
+        <!-- HERO -->
+
+        <section class="hero">
+            <div class="container">
+
+                <div class="tag">Roblox Developer</div>
+
+                <h1>
+                    Building simple.
+                    <span>Creating better.</span>
+                </h1>
+
+                <p>
+                    Roblox developer focused on UI, building, and scripting.
+                    I create clean and polished experiences with attention to detail.
+                </p>
+
+                <div class="timezone">
+                    ◷ AST / EST · Available for commissions
+                </div>
+
+            </div>
+        </section>
+
+
+        <!-- WORK -->
+
+        <section id="work">
+            <div class="container">
+
+                <div class="section-title">Selected Work</div>
+
+                <div class="projects">
+
+                    <div class="project">
+                        <div class="project-number">01 / PROJECT</div>
+
+                        <h3>Drill for Lucky Blocks</h3>
+
+                        <p>
+                            Roblox game focused around drilling and discovering
+                            different lucky blocks.
+                        </p>
+
+                        <span class="status">Completed</span>
+                    </div>
+
+
+                    <div class="project">
+                        <div class="project-number">02 / PROJECT</div>
+
+                        <h3>Penguin Harvest</h3>
+
+                        <p>
+                            A Roblox experience built around harvesting,
+                            progression, and a fun penguin-themed environment.
+                        </p>
+
+                        <span class="status">Completed</span>
+                    </div>
+
+
+                    <div class="project">
+                        <div class="project-number">03 / PROJECT</div>
+
+                        <h3>Fly a Plane</h3>
+
+                        <p>
+                            A Roblox plane experience currently being developed
+                            with custom gameplay and systems.
+                        </p>
+
+                        <span class="status">In Development</span>
+                    </div>
+
+                </div>
+
+            </div>
+        </section>
+
+
+        <!-- SKILLS -->
+
+        <section id="skills">
+            <div class="container">
+
+                <div class="section-title">Skills</div>
+
+                <div class="skills">
+                    <div class="skill">UI</div>
+                    <div class="skill">Building</div>
+                    <div class="skill">Scripting</div>
+                </div>
+
+            </div>
+        </section>
+
+
+        <!-- PAYMENT -->
+
+        <section id="payment">
+            <div class="container">
+
+                <div class="section-title">Payments & Commissions</div>
+
+                <div class="payment-box">
+
+                    <h2>Project Information</h2>
+
+                    <div class="payment-item">
+                        <span class="payment-label">Type of Projects</span>
+                        I work on Robux + % based projects with an upfront fee
+                        required before I start working.
+                    </div>
+
+                    <div class="payment-item">
+                        <span class="payment-label">Supported Methods</span>
+                        Robux, % <span style="color:#999;">(more soon)</span>
+                    </div>
+
+                    <div class="payment-item">
+                        <span class="payment-label">Required Fee</span>
+                        The upfront fee depends on the project and commission.
+                    </div>
+
+                </div>
+
+            </div>
+        </section>
+
+
+        <!-- CONTACT -->
+
+        <section class="contact">
+            <div class="container">
+
+                <h2>Let's work together.</h2>
+
+                <p>
+                    Have a project in mind? Feel free to reach out.
+                </p>
+
+                <!-- Change this to your Discord or other contact -->
+                <a class="button" href="https://discord.com" target="_blank">
+                    Contact Me
+                </a>
+
+            </div>
+        </section>
+
+    </main>
+
+
+    <footer>
+        <div class="container">
+            © 2026 YOURNAME · Roblox Developer
         </div>
-      </div>
-    </section>
+    </footer>
 
-    <section id="contact">
-      <div class="card" style="text-align:center;padding:35px">
-        <div class="footer-brand">Arctic</div>
-        <p style="color:var(--muted);margin:12px 0 20px">Roblox developer · UI · scripting · game systems</p>
-        <div class="cta">
-          <a class="btn primary" href="https://github.com/" target="_blank">GitHub ↗</a>
-          <a class="btn" href="https://www.roblox.com/" target="_blank">Roblox ↗</a>
-          <a class="btn" href="mailto:your@email.com">Email ↗</a>
-        </div>
-      </div>
-    </section>
-  </main>
-
-  <footer><span class="footer-brand">Arctic</span><br><br>Built for GitHub Pages · © <span id="year"></span></footer>
-
-  <script>
-    const fmtTime = (date, offsetHours) => {
-      const utc = date.getTime() + date.getTimezoneOffset()*60000;
-      return new Date(utc + offsetHours*3600000);
-    };
-    const timeString = d => d.toLocaleTimeString('en-US',{hour:'2-digit',minute:'2-digit',second:'2-digit',hour12:false});
-    const dateString = d => d.toLocaleDateString('en-US',{weekday:'long',month:'long',day:'numeric',year:'numeric'});
-    function tick(){
-      const now = new Date();
-      const ast = fmtTime(now,-4);
-      const est = fmtTime(now,-5);
-      document.getElementById('ast').textContent=timeString(ast);
-      document.getElementById('est').textContent=timeString(est);
-      document.getElementById('astDate').textContent=dateString(ast);
-      document.getElementById('estDate').textContent=dateString(est);
-
-      const midnight = new Date(ast);
-      midnight.setHours(24,0,0,0);
-      const diff = midnight-ast;
-      const h=Math.floor(diff/3600000), m=Math.floor(diff%3600000/60000), s=Math.floor(diff%60000/1000);
-      document.getElementById('countdown').textContent =
-        [h,m,s].map((x,i)=>String(x).padStart(2,'0')).join(':');
-      document.getElementById('year').textContent=now.getFullYear();
-    }
-    tick(); setInterval(tick,1000);
-  </script>
 </body>
 </html>
